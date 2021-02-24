@@ -1,0 +1,36 @@
+---
+- hosts: builder
+  gather_facts: no
+  tasks:
+
+    - name: create build directory
+      file:
+        path: /opt/demo-dockerfile
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: copy scr dir
+      copy:
+        src: ./src
+        dest: /opt/demo-dockerfile/src
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: copy Dockerfile
+      copy:
+        src: ./Dockerfile
+        dest: /root/demo-dockerfile/Dockerfile
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: build container image
+      docker_image:
+        name: democontainer:v1.0
+        build:
+          path: /root/demo-dockerfile
+          source: build
+        state: present
