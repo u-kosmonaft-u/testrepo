@@ -9,7 +9,7 @@ pipeline {
         }
         stage('run ansible playbook') {
             steps {
-                ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: 'ansible/inv.yml', playbook: 'ansible/buildimage.yml'
+                ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: './ansible/inv.yml', playbook: './ansible/buildimage.yml'
             }
         }
         stage('success') {
