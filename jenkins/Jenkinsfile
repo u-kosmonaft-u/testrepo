@@ -19,7 +19,7 @@ pipeline {
                     }
                 }
             }
-        }
+
         stage('Build') {
             steps {
                ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: 'ansible/inv.yml', playbook: 'ansible/buidimage.yml'
