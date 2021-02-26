@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    //These params will be displayed for user input when running a build, They are also accepted by the API
+    parameters {
+
+    }
+
+    stages {
+        stage('git check ') {
+            steps {
+
+                }
+            }
+        }
+        stage('download source code') {
+            //
+            steps {
+                git credentialsId: 'my-pass', url: 'https://github.com/u-kosmonaft-u/testrepo'
+                    }
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+               ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: 'ansible/inv.yml', playbook: 'ansible/buidimage.yml'
+                    }
+                }
+            }
+        }
+    }
+}
