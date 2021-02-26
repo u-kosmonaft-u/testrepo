@@ -25,7 +25,7 @@ pipeline {
                ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: 'ansible/inv.yml', playbook: 'ansible/buidimage.yml'
                     }
                 }
-            }
+
         }
     }
 }
