@@ -7,14 +7,14 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/u-kosmonaft-u/testrepo'
             }
         }
-        stage('git clone repo') {
+        stage('run ansible playbook') {
             steps {
-                echo 'Testing..'
+                ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: 'ansible/inv.yml', playbook: 'ansible/buildimage.yml'
             }
         }
-        stage('start ansible script') {
+        stage('success') {
             steps {
-                echo 'Deploying....'
+                echo 'finally!'
             }
         }
     }
