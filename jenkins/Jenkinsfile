@@ -1,31 +1,23 @@
 pipeline {
     agent any
-    //These params will be displayed for user input when running a build, They are also accepted by the API
-    parameters {
-
-    }
-
+    options {
+            ansiColor('xterm')
+        }
     stages {
-        stage('git check ') {
+        stage('git check') {
             steps {
-
-                }
+                git branch: 'main', url: 'https://github.com/u-kosmonaft-u/testrepo'
             }
         }
-        stage('download source code') {
-            //
+        stage('git clone repo') {
             steps {
-                git credentialsId: 'my-pass', url: 'https://github.com/u-kosmonaft-u/testrepo'
-                    }
-                }
+                echo 'Testing..'
             }
-
-        stage('Build') {
+        }
+        stage('start ansible script') {
             steps {
-               ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: 'ansible/inv.yml', playbook: 'ansible/buidimage.yml'
-                    }
-                }
-
+                echo 'Deploying....'
+            }
         }
     }
 }
