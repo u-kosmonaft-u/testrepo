@@ -5,6 +5,7 @@
   become_method: sudo
   become_user: root
   tasks:
+    - debug: msg="{{ lookup('env','BUILD_TAG') }}"
 
     - name: create build directory
       file:
@@ -40,8 +41,22 @@
 
     - name: build container image
       docker_image:
-        name: pythondemo:v1.0
-        tag: v1
+        name: pythondemo:"{{ lookup('env','BUILD_TAG') }}"
+        tag: "{{ lookup('env','BUILD_TAG') }}"
         build:
           path: /opt/demo-dockerfile
         state: present
+
+    - name: Tag and push to local regestry
+      docker_image:
+        name: pythondemo:"{{ lookup('env','BUILD_TAG') }}"
+        repository: nexus.regestry.home:8083
+        tag: "{{ lookup('env','BUILD_TAG') }}"
+        source: local
+        push: yes
+
+    - name: Remove image from workdir
+      docker_image:
+        state: absent
+        name: nexus.regestry.home:8083/pythondemo:"{{ lookup('env','BUILD_TAG') }}"
+        tag: "{{ lookup('env','BUILD_TAG') }}"
