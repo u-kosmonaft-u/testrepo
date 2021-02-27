@@ -15,7 +15,8 @@ pipeline {
         }
         stage('run ansible playbook') {
             steps {
-                ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: 'ansible/inv.yml', playbook: 'ansible/buidimage.yml'
+                sh 'cd ansible'
+                ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: 'inv.yml', playbook: 'buidimage.yml'
             }
         }
         stage('success') {
