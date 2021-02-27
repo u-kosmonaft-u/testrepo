@@ -4,6 +4,8 @@
   become: yes
   become_method: sudo
   become_user: root
+  vars:
+    docker_image_tag: "{{ lookup('env','BUILD_ID') }}"
   tasks:
     - debug: msg="{{ lookup('env','BUILD_ID') }}"
 
@@ -41,25 +43,25 @@
 
     - name: build container image
       docker_image:
-        name: pythondemo:v"{{ lookup('env','BUILD_ID') }}"
-        tag: "{{ lookup('env','BUILD_ID') }}"
+        name: pythondemo:build-"{{ docker_image_tag }}"
+        tag: "{{ docker_image_tag }}"
         build:
           path: /opt/demo-dockerfile
         state: present
 
     - name: Tag and push to local regestry
       docker_image:
-        name: pythondemo:v"{{ lookup('env','BUILD_ID') }}"
+        name: pythondemo:v"{{ docker_image_tag }}"
         repository: nexus.regestry.home:8083
-        tag: v"{{ lookup('env','BUILD_ID') }}"
+        tag: build-"{{ docker_image_tag }}"
         source: local
         push: yes
 
     - name: Remove image from workdir
       docker_image:
         state: absent
-        name: nexus.regestry.home:8083/pythondemo:"{{ lookup('env','BUILD_ID') }}"
-        tag: v"{{ lookup('env','BUILD_ID') }}"
+        name: nexus.regestry.home:8083/pythondemo:"{{ docker_image_tag }}"
+        tag: build-"{{ docker_image_tag }}"
 
     - name: delete working directory
       file:
