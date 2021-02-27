@@ -10,9 +10,7 @@ pipeline {
         stage('debug working dir') {
             steps {
                 sh 'pwd'
-            }
-            steps {
-                sh 'ls -la'
+                 sh 'ls -la'
             }
         }
 //         stage('run ansible playbook') {
