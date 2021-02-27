@@ -9,6 +9,11 @@
   tasks:
     - debug: msg="{{ lookup('env','BUILD_ID') }}"
 
+    - name: try to debag my playbook
+      shell:
+        cmd: echo "{{ docker_image_tag }}"
+        chdir: /opt
+
     - name: create build directory
       file:
         path: /opt/demo-dockerfile
