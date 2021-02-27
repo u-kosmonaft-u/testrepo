@@ -41,7 +41,7 @@
 
     - name: build container image
       docker_image:
-        name: pythondemo:"{{ lookup('env','BUILD_ID') }}"
+        name: pythondemo:v"{{ lookup('env','BUILD_ID') }}"
         tag: "{{ lookup('env','BUILD_ID') }}"
         build:
           path: /opt/demo-dockerfile
@@ -49,9 +49,9 @@
 
     - name: Tag and push to local regestry
       docker_image:
-        name: pythondemo:"{{ lookup('env','BUILD_ID') }}"
+        name: pythondemo:v"{{ lookup('env','BUILD_ID') }}"
         repository: nexus.regestry.home:8083
-        tag: "{{ lookup('env','BUILD_ID') }}"
+        tag: v"{{ lookup('env','BUILD_ID') }}"
         source: local
         push: yes
 
@@ -59,4 +59,9 @@
       docker_image:
         state: absent
         name: nexus.regestry.home:8083/pythondemo:"{{ lookup('env','BUILD_ID') }}"
-        tag: "{{ lookup('env','BUILD_ID') }}"
+        tag: v"{{ lookup('env','BUILD_ID') }}"
+
+    - name: delete working directory
+      file:
+        path: /opt/demo-dockerfile
+        state: absent
