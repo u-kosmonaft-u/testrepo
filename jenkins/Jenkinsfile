@@ -7,11 +7,19 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/u-kosmonaft-u/testrepo'
             }
         }
-        stage('run ansible playbook') {
+        stage('debug working dir') {
             steps {
-                ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: './ansible/inv.yml', playbook: './ansible/buildimage.yml'
+                sh 'pwd'
+            }
+            steps {
+                sh 'ls -la'
             }
         }
+//         stage('run ansible playbook') {
+//             steps {
+//                 ansiblePlaybook credentialsId: 'my-pass', installation: 'Ansible', inventory: './ansible/inv.yml', playbook: './ansible/buildimage.yml'
+//             }
+//         }
         stage('success') {
             steps {
                 echo 'finally!'
