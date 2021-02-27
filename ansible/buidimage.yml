@@ -23,6 +23,14 @@
         mode: '0755'
 
     - name: copy Dockerfile
+        copy:
+          src: ../requirements.txt
+          dest: /opt/demo-dockerfile/requirements.txt
+          owner: root
+          group: root
+          mode: '0644'
+
+    - name: copy Dockerfile
       copy:
         src: ../Dockerfile
         dest: /opt/demo-dockerfile/Dockerfile
