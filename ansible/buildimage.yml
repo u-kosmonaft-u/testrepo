@@ -56,7 +56,7 @@
 
     - name: Tag and push to local regestry
       docker_image:
-        name: pythondemo:v"{{ docker_image_tag }}"
+        name: pythondemo:build-"{{ docker_image_tag }}"
         repository: nexus.regestry.home:8083
         tag: build-"{{ docker_image_tag }}"
         source: local
@@ -65,7 +65,7 @@
     - name: Remove image from workdir
       docker_image:
         state: absent
-        name: nexus.regestry.home:8083/pythondemo:"{{ docker_image_tag }}"
+        name: nexus.regestry.home:8083/pythondemo:build-"{{ docker_image_tag }}"
         tag: build-"{{ docker_image_tag }}"
 
     - name: delete working directory
