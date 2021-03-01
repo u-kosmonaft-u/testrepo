@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    ansiColor('xterm')
 
     stages {
         stage('git check') {
@@ -13,15 +14,13 @@ pipeline {
                 sh 'ls -la'
             }
         }
-        ansiColor('xterm'){
-            stage('run ansible build playbook') {
-                steps {
-                    ansiblePlaybook (credentialsId: 'my-pass',
-                                     installation: 'Ansible',
-                                     inventory: 'ansible/inv.yml',
-                                     playbook: 'ansible/buildimage.yml',
-                                     colorized: true)
-                }
+        stage('run ansible build playbook') {
+            steps {
+                ansiblePlaybook (credentialsId: 'my-pass',
+                                 installation: 'Ansible',
+                                 inventory: 'ansible/inv.yml',
+                                 playbook: 'ansible/buildimage.yml',
+                                 colorized: true)
             }
         }
         stage('success') {
