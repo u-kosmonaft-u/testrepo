@@ -11,7 +11,7 @@
 
     - name: add vars
       include_vars:
-        file: ansible/secret.yml
+        file: secret.yml
 
     - name: try to debag my playbook
       shell:
@@ -62,7 +62,7 @@
       docker_login:
         registry: nexus.regestry.home:8083
         username: admin
-        password: "{{ secret }}"
+        password: "{{ nexus_password }}"
         reauthorize: yes
 
     - name: Tag and push to local regestry
