@@ -15,11 +15,13 @@ pipeline {
         }
         stage('run ansible build playbook') {
             steps {
+                ansiColor('xterm'){
                 ansiblePlaybook (credentialsId: 'my-pass',
                                  installation: 'Ansible',
                                  inventory: 'ansible/inv.yml',
                                  playbook: 'ansible/buildimage.yml',
                                  colorized: true)
+                                 }
             }
         }
         stage('success') {
