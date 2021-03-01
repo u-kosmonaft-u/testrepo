@@ -10,8 +10,8 @@
     - debug: msg="{{ lookup('env','BUILD_ID') }}"
 
     - name: add vars
-        include_vars:
-          file: ansible/secret.yml
+      include_vars:
+        file: ansible/secret.yml
 
     - name: try to debag my playbook
       shell:
