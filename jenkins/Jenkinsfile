@@ -1,6 +1,5 @@
 pipeline {
     agent any
-    ansiColor('xterm')
 
     stages {
         stage('git check') {
