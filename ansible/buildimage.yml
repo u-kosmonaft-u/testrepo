@@ -9,6 +9,10 @@
   tasks:
     - debug: msg="{{ lookup('env','BUILD_ID') }}"
 
+    - name: add vars
+        include_vars:
+          file: ansible/secret.yml
+
     - name: try to debag my playbook
       shell:
         cmd: echo "{{ docker_image_tag }}"
@@ -58,13 +62,7 @@
       docker_login:
         registry: nexus.regestry.home:8083
         username: admin
-        password: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          63646532323732613865663137663261666534323665616437343734366636643332323934646633
-          3739643433623161343732663364626562313231336463620a383762633637353561356365313531
-          33643139623035346130323063613735343531646663656537326163373130363933353332656637
-          3330386336616162390a663038376264613262396265316462643237393932363564643865613038
-          3138
+        password: "{{ secret }}"
         reauthorize: yes
 
     - name: Tag and push to local regestry
