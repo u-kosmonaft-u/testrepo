@@ -64,7 +64,7 @@
     - name: Tag and push to local regestry
       docker_image:
         name: pythondemo
-        repository: nexus.regestry.home:8083/mydocker
+        repository: nexus.regestry.home:8083/pythondemo
         tag: "{{ docker_image_tag }}"
         source: local
         push: yes
