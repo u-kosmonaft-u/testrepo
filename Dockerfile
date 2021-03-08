@@ -13,5 +13,8 @@ RUN pip install -r requirements.txt
 # copy the content of the local src directory to the working directory
 COPY src .
 
+# expose 5000 port for health check
+EXPOSE 5000
+
 # command to run on container start
 CMD [ "python", "./testapp.py" ]

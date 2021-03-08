@@ -1,7 +1,7 @@
 from numpy.random import choice, randint
 import time
 import json
-
+from flask import Flask
 
 def get_random_value():
     new_dict = {}
@@ -18,9 +18,28 @@ def get_random_value():
 
     return new_dict
 
-while True:
-    data = get_random_value()
-    time.sleep(1)
-    json_object = json.dumps(data, indent = 4)
-    print(json_object)
+# while True:
+#     data = get_random_value()
+#     time.sleep(1)
+#     json_object = json.dumps(data, indent = 4)
+#     print(json_object)
 
+app = Flask(__name__)
+
+@app.route("/")
+def dataSender():
+    data = get_random_value()
+    return data
+
+
+@app.route('/healthz')
+def healthz():
+    return "OK"
+
+@app.route('/healthx')
+def healthx():
+    time.sleep(1)
+    return "OK"
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
