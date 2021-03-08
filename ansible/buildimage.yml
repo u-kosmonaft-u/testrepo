@@ -9,10 +9,6 @@
   tasks:
     - debug: msg="{{ lookup('env','BUILD_ID') }}"
 
-    - name: add vars
-      include_vars:
-        file: secret.yml
-
     - name: try to debag my playbook
       shell:
         cmd: echo "{{ docker_image_tag }}"
@@ -62,7 +58,7 @@
       docker_login:
         registry: nexus.regestry.home:8083
         username: admin
-        password: "{{ nexus_password }}"
+        password: death
         reauthorize: yes
 
     - name: Tag and push to local regestry
