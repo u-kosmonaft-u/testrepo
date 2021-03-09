@@ -17,4 +17,4 @@ COPY src .
 EXPOSE 5000
 
 # command to run on container start
-CMD [ "python", "./testapp.py" ]
+CMD [ "python", "/code/src/testapp.py" ]
