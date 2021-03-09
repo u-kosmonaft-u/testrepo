@@ -27,5 +27,14 @@ pipeline {
                 echo 'finally!'
             }
         }
+        stage('test') {
+            agent {
+                docker { image 'nexus.regestry.home:8083/pythondemo:latest'}
+            }
+            steps {
+                sh 'ps -aux | grep python'
+                sh 'curl 127.0.0.1:5000'
+            }
+        }
     }
 }

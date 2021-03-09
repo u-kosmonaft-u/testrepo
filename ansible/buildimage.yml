@@ -7,13 +7,6 @@
   vars:
     docker_image_tag: "{{ lookup('env','BUILD_ID') }}"
   tasks:
-    - debug: msg="{{ lookup('env','BUILD_ID') }}"
-
-    - name: try to debag my playbook
-      shell:
-        cmd: echo "{{ docker_image_tag }}"
-        chdir: /opt
-
     - name: create build directory
       file:
         path: /opt/demo-dockerfile
@@ -49,7 +42,8 @@
     - name: build container image
       docker_image:
         name: pythondemo
-        tag: "{{ docker_image_tag }}"
+        tag: latest
+        force_tag: yes
         build:
           path: /opt/demo-dockerfile
         state: present
@@ -65,17 +59,18 @@
       docker_image:
         name: pythondemo
         repository: nexus.regestry.home:8083/pythondemo
-        tag: "{{ docker_image_tag }}"
+        tag: latest
+        force_tag: yes
         source: local
         push: yes
 
-    - name: Remove image from workdir
-      docker_image:
-        state: absent
-        name: nexus.regestry.home:8083/pythondemo
-        tag: "{{ docker_image_tag }}"
-
-    - name: delete working directory
-      file:
-        path: /opt/demo-dockerfile
-        state: absent
+#    - name: Remove image from workdir
+#      docker_image:
+#        state: absent
+#        name: nexus.regestry.home:8083/pythondemo
+#        tag: latest
+#
+#    - name: delete working directory
+#      file:
+#        path: /opt/demo-dockerfile
+#        state: absent
